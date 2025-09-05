@@ -36,6 +36,68 @@
 
 <script>
 //Your code goes here 
+	const container = document.querySelector('.items');
+const cubes = document.querySelectorAll('.item');
+
+let selectedCube = null;
+let offsetX = 0;
+let offsetY = 0;
+
+// Mouse down: select cube
+cubes.forEach(cube => {
+  cube.addEventListener('mousedown', (e) => {
+    selectedCube = cube;
+
+    // Get mouse offset inside the cube
+    const rect = cube.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+
+    // Bring the selected cube to the front
+    cube.style.position = 'absolute';
+    cube.style.zIndex = 1000;
+
+    moveAt(e.pageX, e.pageY);
+  });
+});
+
+// Function to move the cube to mouse coordinates
+function moveAt(pageX, pageY) {
+  const containerRect = container.getBoundingClientRect();
+  const cubeRect = selectedCube.getBoundingClientRect();
+
+  let left = pageX - containerRect.left - offsetX;
+  let top = pageY - containerRect.top - offsetY;
+
+  // Boundary conditions
+  left = Math.max(0, Math.min(left, container.clientWidth - cubeRect.width));
+  top = Math.max(0, Math.min(top, container.clientHeight - cubeRect.height));
+
+  selectedCube.style.left = left + 'px';
+  selectedCube.style.top = top + 'px';
+}
+
+// Mouse move: drag cube
+document.addEventListener('mousemove', (e) => {
+  if (!selectedCube) return;
+  moveAt(e.pageX, e.pageY);
+});
+
+// Mouse up: drop cube
+document.addEventListener('mouseup', () => {
+  if (selectedCube) {
+    selectedCube.style.zIndex = '';
+    selectedCube = null;
+  }
+});
+
+// Optional: prevent text selection while dragging
+document.addEventListener('mousedown', e => {
+  if (e.target.classList.contains('item')) {
+    e.preventDefault();
+  }
+});
+
 </script>
 
   </body>
