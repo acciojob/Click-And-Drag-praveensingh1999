@@ -7,98 +7,34 @@
 </head>
 <body>
   <div class="items">
-    <div class="item item1">01</div>
-    <div class="item item2">02</div>
-    <div class="item item3">03</div>
-    <div class="item item4">04</div>
-    <div class="item item5">05</div>
-    <div class="item item6">06</div>
-    <div class="item item7">07</div>
-    <div class="item item8">08</div>
-    <div class="item item9">09</div>
-    <div class="item item10">10</div>
-    <div class="item item11">11</div>
-    <div class="item item12">12</div>
-    <div class="item item13">13</div>
-    <div class="item item14">14</div>
-    <div class="item item15">15</div>
-    <div class="item item16">16</div>
-    <div class="item item17">17</div>
-    <div class="item item18">18</div>
-    <div class="item item19">19</div>
-    <div class="item item20">20</div>
-    <div class="item item21">21</div>
-    <div class="item item22">22</div>
-    <div class="item item23">23</div>
-    <div class="item item24">24</div>
-    <div class="item item25">25</div>
+    <!-- 25 items -->
+    <div class="item">01</div>
+    <div class="item">02</div>
+    <div class="item">03</div>
+    <div class="item">04</div>
+    <div class="item">05</div>
+    <div class="item">06</div>
+    <div class="item">07</div>
+    <div class="item">08</div>
+    <div class="item">09</div>
+    <div class="item">10</div>
+    <div class="item">11</div>
+    <div class="item">12</div>
+    <div class="item">13</div>
+    <div class="item">14</div>
+    <div class="item">15</div>
+    <div class="item">16</div>
+    <div class="item">17</div>
+    <div class="item">18</div>
+    <div class="item">19</div>
+    <div class="item">20</div>
+    <div class="item">21</div>
+    <div class="item">22</div>
+    <div class="item">23</div>
+    <div class="item">24</div>
+    <div class="item">25</div>
   </div>
 
-<script>
-//Your code goes here 
-	const container = document.querySelector('.items');
-const cubes = document.querySelectorAll('.item');
-
-let selectedCube = null;
-let offsetX = 0;
-let offsetY = 0;
-
-// Mouse down: select cube
-cubes.forEach(cube => {
-  cube.addEventListener('mousedown', (e) => {
-    selectedCube = cube;
-
-    // Get mouse offset inside the cube
-    const rect = cube.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
-
-    // Bring the selected cube to the front
-    cube.style.position = 'absolute';
-    cube.style.zIndex = 1000;
-
-    moveAt(e.pageX, e.pageY);
-  });
-});
-
-// Function to move the cube to mouse coordinates
-function moveAt(pageX, pageY) {
-  const containerRect = container.getBoundingClientRect();
-  const cubeRect = selectedCube.getBoundingClientRect();
-
-  let left = pageX - containerRect.left - offsetX;
-  let top = pageY - containerRect.top - offsetY;
-
-  // Boundary conditions
-  left = Math.max(0, Math.min(left, container.clientWidth - cubeRect.width));
-  top = Math.max(0, Math.min(top, container.clientHeight - cubeRect.height));
-
-  selectedCube.style.left = left + 'px';
-  selectedCube.style.top = top + 'px';
-}
-
-// Mouse move: drag cube
-document.addEventListener('mousemove', (e) => {
-  if (!selectedCube) return;
-  moveAt(e.pageX, e.pageY);
-});
-
-// Mouse up: drop cube
-document.addEventListener('mouseup', () => {
-  if (selectedCube) {
-    selectedCube.style.zIndex = '';
-    selectedCube = null;
-  }
-});
-
-// Optional: prevent text selection while dragging
-document.addEventListener('mousedown', e => {
-  if (e.target.classList.contains('item')) {
-    e.preventDefault();
-  }
-});
-
-</script>
-
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
